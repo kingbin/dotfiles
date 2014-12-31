@@ -59,7 +59,7 @@ vim_setup(){
 }
 
 font_setup(){
-	cp -f *.otf ~/Library/Fonts/
+	cp -f $DOTFILES_ROOT/fonts/*.otf ~/Library/Fonts/
 }
 
 link_files () {
