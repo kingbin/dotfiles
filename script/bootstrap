@@ -45,30 +45,15 @@ setup_gitconfig () {
 git_submodules() {
 	# pull in submodules for my zsh and vim configs 
 	info 'git submodule init'
-	if . `git sub-init` > /tmp/dotfiles-git-submodules 2>&1
-    then
-      success "submodules init"
-    else
-      fail "error init submodules"
-    fi
+	`git sub-init` > /tmp/dotfiles-git-submodules 2>&1
 }
 
 vim_setup(){
-	if . `ln -s .vim/vimrc ~/.vimrc` > /tmp/dotfiles-vim-setup 2>&1
-	then
-		success "vim setup successfully"
-	else
-		fail "error setting up vim"
-	fi
+	`ln -s .vim/vimrc ~/.vimrc` > /tmp/dotfiles-vim-setup 2>&1
 }
 
 font_setup(){
-	if . `cp *.otf ~/Library/Fonts/` > /tmp/dotfiles-font-setup 2>&1
-	then
-		success "fonts setup successfully"
-	else
-		fail "error setting up fonts"
-	fi	
+	`cp *.otf ~/Library/Fonts/` > /tmp/dotfiles-font-setup 2>&1
 }
 
 link_files () {
