@@ -49,11 +49,17 @@ git_submodules() {
 }
 
 vim_setup(){
-	ln -s .vim/vimrc ~/.vimrc
+	dest = ~/.vimrc
+	if [ -f $dest ] || [ -h $dest ] || [ -d $dest ]
+    then
+    	rm -f $dest
+	fi
+
+	ln -s .vim/vimrc $dest
 }
 
 font_setup(){
-	cp *.otf ~/Library/Fonts/
+	cp -f *.otf ~/Library/Fonts/
 }
 
 link_files () {
