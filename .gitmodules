@@ -1,0 +1,3 @@
+[submodule "modules/oh-my-zsh.dotsymlink"]
+	path = modules/oh-my-zsh.dotsymlink
+	url = git@github.com:kingbin/oh-my-zsh.git

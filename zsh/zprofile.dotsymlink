@@ -1,0 +1,26 @@
+# ~/.profile: executed by Bourne-compatible login shells.
+
+if [ -f ~/.zshrc ]; then
+  . ~/.zshrc
+fi
+
+#PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/include/crypto++:/usr/games:/home/cblazek/bin
+#export PATH
+
+alias ducks='du -cks * | sort -rn | head -11'
+
+mesg n
+
+#keychain id_dsa 563FD864
+#               host=`uname -n`
+#		[ -f $HOME/.keychain/$host-sh ] && \
+#                       . $HOME/.keychain/$host-sh
+#                [ -f $HOME/.keychain/$host-sh-gpg ] && \
+#                       . $HOME/.keychain/$host-sh-gpg
+
+#keychain id_rsa id_dsa 0123ABCD
+#               host=`uname -n`
+#	       [ -f $HOME/.ssh/id_dsa ] && \
+#               . $HOME/.ssh/id_dsa
+#	       [ -f $HOME/.gnupg/$host-sh-gpg ] && \
+#	       . $HOME/.gnupg/$host-sh-gpg

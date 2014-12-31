@@ -1,0 +1,152 @@
+# Start of cdmatch.
+# Save in your functions directory and autoload, then do
+# compctl -x 'S[/][~][./][../]' -g '*(-/)' - \
+#         'n[-1,/], s[]' -K cdmatch -S '/' -- cd pushd
+#
+# Completes directories for cd, pushd, ... anything which knows about cdpath.
+# You do not have to include `.' in your cdpath.
+#
+# It works properly only if $ZSH_VERSION > 3.0-pre4.  Remove `emulate -R zsh'
+# for all other values of $ZSH_VERSION > 2.6-beta2. For earlier versions
+# it still works if RC_EXPAND_PARAM is not set or when cdpath is empty.
+emulate -R zsh
+setopt localoptions
+local narg pref cdp
+
+read -nc narg
+read -Ac pref
+
+cdp=(. $cdpath)
+reply=( ${^cdp}/${pref[$narg]%$2}*$2(-/DN^M:t) )
+
+return
+# End of cdmatch.
+
+
+clean () {
+    echo -n "Really clean this directory?"
+    read yorn
+    if test "$yorn" = "y"
+    then
+        rm -f \#* *~ .*~ *.bak *.o *.tmp core a.out
+        echo "Cleaned."
+    else
+        echo "Not cleaned."
+    fi
+}
+
+dp () {
+    ls -lF $* | less
+}
+
+exit () {
+    fc -ln 1 | grep -v 'fc -ln' | tail -$SAVEHIST >! $HOME/.history
+    builtin exit
+}
+
+here () {
+    current=$PWD
+    echo "current=\"$current\"" >! $HOME/.current
+}
+
+l () {
+    ls -lF $*
+}
+
+Make () {
+    cp /dev/null .make
+    /usr/local/bin/make $* > .make 2>&1 &
+    tail -f .make
+}
+
+mk () {
+    mkdir $*
+    chmod 755 $*
+}
+
+mx () {
+    chmod 755 $*
+}
+
+nr () {
+    tbl $* | nroff -man | col -b | less
+}
+
+r () {
+    chmod 644 $*
+}
+
+ro () {
+    chmod 444 $*
+}
+
+setenv () {
+    export $1="$2"
+}
+
+sl () {
+    ls -FL $* | fgrep "@"
+}
+
+up () {
+    cd ../$*
+}
+
+upp () {
+    cd ../../$*
+}
+
+xls () {
+    echo Directories:
+    ls -F $* | tee /tmp/file$$ | grep /\$ | pr -5t |
+    sed -e "s/^/    /"
+    echo ""
+    echo Files:
+    grep -v /\$ /tmp/file$$ | pr -5t | sed -e "s/^/ /"
+    rm -f /tmp/file$$
+}
+
+# From: Andrew J Cosgriff <ajc@unico.com.au>
+# Message-Id: <199605252301.JAA04006@ufo.unico.com.au>
+# To: "Greg J. Badros" <gjb@moa.cs.duke.edu>
+# Cc: zsh-workers@math.gatech.edu
+# Subject: Re: Zsh "POSTPROMPT" Feature 
+# Date: Sun, 26 May 1996 09:01:21 +1000
+# Sender: ajc@ufo.dev.unico.com.au
+# X-Address: ajc@bing.wattle.id.au
+# 
+# Well, if you just want to keep track of your current directory
+# in your title bar, there's no need to patch zsh...For a start
+# it's a little more efficient to only change your xterm title
+# when you need to - ie. when you change directory - this can be
+# done with the "chpwd" function, like so :
+#
+# Tue May 28 12:22:30 EDT 1996 KEV
+#   Use this if you want short names for directories, like ~:
+#   local dir=`print -D ${PWD}`
+#
+# Sat May  1 20:05:26 EDT 1999 KEV
+#   Added control sequences to set the color.  This didn't
+#   work:
+#           local color="\033[0;0m\033[47m"
+#
+# Sat Jan 15 18:13:41 EST 2000 KEV
+#   Better check for Xwindows: TERM=xterm?
+#   Need precmd under FreeBSD for some reason.
+#
+# Mon Aug 11 21:21:56 EDT 2003 KEV
+#   Don't need precmd.  Just use chpwd.
+#   Do a "sort | uniq -c" on .cdlist to find most popular directories.
+#   Use grabchar to handle quick changing.
+
+case "$TERM" in
+    xterm*) chpwd () {
+                local dir=`print ${PWD}`
+                local title=${LOGNAME}@$(nodename):$dir
+                print -n -D -P "\033]2;${title}\007"
+		/bin/pwd >> ~/.cdlist
+            }
+            ;;
+
+    *)  echo Not setting chpwd.  ;;
+esac
