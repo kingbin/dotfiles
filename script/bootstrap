@@ -156,12 +156,14 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
 
 git_submodules
 vim_setup
 font_setup
+
+setup_gitconfig
+install_dotfiles
+
 
 # If we are on a mac, lets install and setup homebrew
 if [ "$(uname -s)" == "Darwin" ]
