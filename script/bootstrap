@@ -49,7 +49,7 @@ git_submodules() {
 }
 
 vim_setup(){
-	dest = ~/.vimrc
+	dest=~/.vimrc
 	if [ -f $dest ] || [ -h $dest ] || [ -d $dest ]
     then
     	rm -f $dest
