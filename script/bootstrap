@@ -45,15 +45,15 @@ setup_gitconfig () {
 git_submodules() {
 	# pull in submodules for my zsh and vim configs 
 	info 'git submodule init'
-	`git sub-init`
+	git sub-init
 }
 
 vim_setup(){
-	`ln -s .vim/vimrc ~/.vimrc`
+	ln -s .vim/vimrc ~/.vimrc
 }
 
 font_setup(){
-	`cp *.otf ~/Library/Fonts/`
+	cp *.otf ~/Library/Fonts/
 }
 
 link_files () {
