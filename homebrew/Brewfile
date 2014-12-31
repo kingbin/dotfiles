@@ -13,6 +13,8 @@ install tree
 install wget
 install zsh
 
+install caskroom/cask/brew-cask
+
 # quicklook plugins
 cask install qlcolorcode
 cask install qlstephen
