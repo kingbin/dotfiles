@@ -1,3 +1,9 @@
 [submodule "modules/oh-my-zsh.dotsymlink"]
 	path = modules/oh-my-zsh.dotsymlink
 	url = git@github.com:kingbin/oh-my-zsh.git
+[submodule "modules/vimconfig"]
+	path = modules/vimconfig
+	url = git@github.com:kingbin/vimconfig.git
+[submodule "modules/vim.dotsymlink"]
+	path = modules/vim.dotsymlink
+	url = git@github.com:kingbin/vimconfig.git
