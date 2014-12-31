@@ -53,6 +53,24 @@ git_submodules() {
     fi
 }
 
+vim_setup(){
+	if . `ln -s .vim/vimrc ~/.vimrc` > /tmp/dotfiles-vim-setup 2>&1
+	then
+		success "vim setup successfully"
+	else
+		fail "error setting up vim"
+	fi
+}
+
+font_setup(){
+	if . `cp *.otf ~/Library/Fonts/` > /tmp/dotfiles-font-setup 2>&1
+	then
+		success "fonts setup successfully"
+	else
+		fail "error setting up fonts"
+	fi	
+}
+
 link_files () {
   #echo '__LINKING ${1} TO ${2}__'
   ln -s $1 $2
@@ -142,6 +160,8 @@ setup_gitconfig
 install_dotfiles
 
 git_submodules
+vim_setup
+font_setup
 
 # If we are on a mac, lets install and setup homebrew
 if [ "$(uname -s)" == "Darwin" ]
