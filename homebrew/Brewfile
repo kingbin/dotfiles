@@ -23,6 +23,6 @@ cask install quicklook-json
 cask install qlprettypatch
 cask install quicklook-csv
 cask install betterzipql
-cask install webp-quicklook
+cask install webpquicklook
 
 update
