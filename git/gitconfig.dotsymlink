@@ -1,0 +1,116 @@
+[user]
+  #name = Chris Blazek
+  #email = chris.blazek@gmail.com
+  name = kingbin
+  email = chris.blazek@gmail.com
+[github]
+  user = kingbin
+  email = chris.blazek@gmail.com
+[color]
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = blue
+  untracked = cyan
+[alias]
+
+  sub-init = "!init() { git checkout master && git pull && git submodule update --init --recursive; }; init"
+  sub-up = "!up() { git submodule foreach git checkout master && git pull; }; up"
+  sub-diff = "!diff() { git submodule foreach 'echo $path `git diff`'; }; diff;"
+  springcleaning = for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:short)'
+  unstage = reset HEAD --
+  pu = !="git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+  vim = !.git/hooks/vim
+
+  br = branch
+  # show all branches, even across remotes
+  branches = branch -a --color -v
+  # remove all local branches included in the current branch
+  cleanup = !sh -c 'git branch --merged | grep -E "^[^*]" --exclude "^\\s*master" | xargs -n1 git branch -d'
+  co = checkout
+  ctags = !.git/hooks/ctags
+  # Show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  # Diff
+  df = diff
+  # Get short SHA-1 for object
+  hash = rev-parse --short HEAD
+  lc = log ORIG_HEAD.. --stat --no-merges
+  # just for fun
+  l33t = !"git shortlog | l33t"
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+  # depends on hub
+  mypulls = browse -- pulls/pengwynn
+  # Find FIXME, TODO, etc, optimized by @x3ro https://gist.github.com/3908985
+  n = !"f() { git ls-files $1 | xargs notes | awk -F: '{ print $1,$2; print $3,$4; print $5}' | grcat conf.notes | less -r;  }; f"
+  pullm = !"git pull origin master"
+  pushm = !"git push origin master"
+  rb = rebase
+  rbc = rebase --continue
+  # Interactive rebase with the selected number of latest commits
+  reb = "!r() { git rebase -i HEAD~$1; }; r"tags = tag -l
+  # track a remote branch
+  track = checkout -t
+  st = status
+  # update all submodules
+  subs = submodule foreach git pull origin master
+  # clean up fully merged branches
+  sweep = !git-sweep
+  # list only untracked files
+  untracked = ls-files --others --exclude-standard
+  # remove a file from the index
+  unstage = reset HEAD --
+  up = "!git remote update -p; git merge --ff-only @{u}"
+  wdiff = diff --color-words
+
+[core]
+  editor = vi
+  autocrlf = input
+  filemode = false
+  excludesfile = ~/.gitignore_global
+  whitespace = cr-at-eol
+
+
+[merge]
+    tool = vimdiff
+
+[web]
+    browser = chrome
+
+[help]
+  autocorrect = 1
+
+[init]
+  templatedir = ~/.git_template
+
+[push]
+    default = matching #simple
+
+[hub]
+  protocol = https
+
+[branch]
+
+[difftool]
+  prompt = false
+
+[diff]
+  tool = vimdiff
+
+# vim: ft=gitconfig
+#[credential]
+#  helper = /opt/boxen/bin/boxen-git-credential
+
