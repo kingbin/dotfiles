@@ -17,9 +17,10 @@
   frag = magenta bold
   old = red bold
   new = green bold
+  whitespace = red reverse
 [color "status"]
-  added = yellow
-  changed = blue
+  added = green
+  changed = red bold
   untracked = cyan
 [alias]
 
@@ -82,7 +83,8 @@
   autocrlf = input
   filemode = false
   excludesfile = ~/.gitignore_global
-  whitespace = cr-at-eol
+  #whitespace = cr-at-eol
+  whitespace = blank-at-eol
 
 
 [merge]
