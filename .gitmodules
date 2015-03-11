@@ -7,3 +7,9 @@
 [submodule "modules/vim.dotsymlink"]
 	path = modules/vim.dotsymlink
 	url = git@github.com:kingbin/vimconfig.git
+[submodule "modules/dotconfig.dotsymlink/base16-shell"]
+	path = modules/dotconfig.dotsymlink/base16-shell
+	url = https://github.com/chriskempson/base16-shell.git
+[submodule "modules/dotconfig.dotsymlink/base16-iTerm"]
+	path = modules/dotconfig.dotsymlink/base16-iTerm
+	url = git@github.com:chriskempson/base16-iterm2.git
