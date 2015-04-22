@@ -1,8 +1,8 @@
 [user]
   #name = Chris Blazek
   #email = chris.blazek@gmail.com
-  name = kingbin
-  email = chris.blazek@gmail.com
+  name = Chris Blazek
+  email = cblazek@armt.com
 [github]
   user = kingbin
   email = chris.blazek@gmail.com
@@ -50,12 +50,13 @@
   lc = log ORIG_HEAD.. --stat --no-merges
   # just for fun
   l33t = !"git shortlog | l33t"
+  last = log -1 HEAD
   lol = log --abbrev-commit --pretty=format:'%h - %an, %ad : %s' --graph
   lola = log  --abbrev-commit --pretty=format:'%h - %an, %ad : %s' --graph --all
   loln = log --abbrev-commit --pretty=format:'%h - %an, %ad : %s' --graph --name-status
   ls = ls-files
   # depends on hub
-  mypulls = browse -- pulls/pengwynn
+  mypulls = browse -- pulls/kingbin
   # Find FIXME, TODO, etc, optimized by @x3ro https://gist.github.com/3908985
   n = !"f() { git ls-files $1 | xargs notes | awk -F: '{ print $1,$2; print $3,$4; print $5}' | grcat conf.notes | less -r;  }; f"
   pullm = !"git pull origin master"
