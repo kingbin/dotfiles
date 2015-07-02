@@ -78,7 +78,11 @@
   unstage = reset HEAD --
   up = "!git remote update -p; git merge --ff-only @{u}"
   wdiff = diff --color-words
-	visual = !gitk
+  visual = !gitk
+  #stash functions
+  sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+  ssave = "!f() { git stash save $*; }; f"
+  sapply = "!f() { git stash apply stash^{/$*}; }; f"
 
 [core]
   editor = vi
