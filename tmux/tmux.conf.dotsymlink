@@ -8,6 +8,19 @@ unbind C-b
  # set prefix key to ctrl-a
  set -g prefix C-a
 
+ set-option -g default-shell /bin/zsh
+
+# # configuration for osx clipboard support
+# set-option -g default-command "reattach-to-user-namespace -l sh"
+# bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+# bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+
+ ## Sync panes
+ bind C-s set-window-option synchronize-panes
+
+ # Show url in buffer
+ bind C-o run-shell "open $(tmux show-buffer)"
+
  # lower command delay
  set -sg escape-time 1
 
@@ -65,10 +78,9 @@ unbind C-b
  setw -g window-status-current-attr bright
 
  # set color of regular and active panes
- set -g pane-border-fg colour238
- set -g pane-border-bg default
- set -g pane-active-border-fg green
- set -g pane-active-border-bg default
+# set -g pane-border-style "fg=colour246, bg=default"
+# set -g pane-active-border-fg green
+# set -g pane-active-border-bg default
 
  # set color of command line
  set -g message-fg white
@@ -76,11 +88,11 @@ unbind C-b
  set -g message-attr bright
 
  # configure contents of status bar
- set -g status-utf8 on
- set -g status-left-length 40
- set -g status-left "#[fg=green]\"#S\""
-
- set -g status-right "#[fg=green] #h | %d %b %R"
+# set -g status-utf8 on
+# set -g status-left-length 40
+# set -g status-left "#[fg=green]\"#S\""
+#
+# set -g status-right "#[fg=green] #h | %d %b %R"
 
  set -g status-justify centre
  setw -g monitor-activity on
@@ -109,3 +121,7 @@ unbind C-b
 
  # set up alias for turning on logging
  bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
+
+ set -g clock-mode-style 24
+
+source ~/.tmux.status.conf

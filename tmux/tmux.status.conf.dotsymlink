@@ -1,0 +1,45 @@
+# show host name and IP address on left side of status bar
+set -g status-left-length 85
+set -g status-left "#[fg=colour235,bg=colour63]: #H #[fg=colour63,bg=brightred]⮀ #[fg=colour235]#(whoami) #[fg=brightred,bg=colour237]⮀#[fg=colour250,bg=colour237]#(ifconfig en0 | grep 'inet ' | awk '{print \"en0 \" $2}') #(ifconfig en1 | grep 'inet ' | awk '{print \"en1 \" $2}') #(ifconfig en3 | grep 'inet ' | awk '{print \"en3 \" $2}') #(ifconfig tun0 | grep 'inet ' | awk '{print \"vpn \" $2}') #(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F'⮀' '/ SSID/{print $2}') #[fg=colour237,bg=colour244]⮀"
+
+# show session name, window & pane number, date and time on right side of status bar
+set -g status-right-length 85
+set -g status-right "#[fg=colour237,bg=colour244] ⮂#[fg=brightred,bg=colour237]⮂#[fg=colour235,bg=brightred] #S #I:#P #[fg=colour63]⮂#[fg=colour235,bg=colour63] %d %b %Y | %H:%M  :"
+
+set -g status-left-bg colour235
+set -g status-right-bg colour235
+set -g status-bg colour244
+set -g status-attr bright
+
+#### COLOUR (Solarized dark)
+
+# default statusbar colors
+#set-option -g status-bg black #base02
+set-option -g status-fg yellow #yellow
+#set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg brightblue #base0
+set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr dim
+
+# active window title colors
+set-window-option -g window-status-current-fg colour250 #orange
+set-window-option -g window-status-current-bg colour237
+#set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg colour250 #base02
+set-option -g pane-border-bg colour239 #base02
+set-option -g pane-active-border-fg colour57
+
+# message text
+set-option -g message-bg black #base02
+set-option -g message-fg brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
