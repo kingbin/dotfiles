@@ -54,12 +54,9 @@ unbind C-b
  bind -r K resize-pane -U 5
  bind -r L resize-pane -R 5
 
- # disable mouse support (at least while we're learning)
- setw -g mode-mouse on
- set -g mouse-select-pane on
- set -g mouse-resize-pane on
- set -g mouse-select-window on
-
+ # mouse support
+ #set -g mouse-utf8 on
+ set -g mouse on
  # turn on 256 color support in tmux
  set -g default-terminal "screen-256color"
 

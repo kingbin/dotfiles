@@ -1,8 +1,6 @@
 [user]
-  #name = Chris Blazek
-  #email = chris.blazek@gmail.com
-  name = Chris Blazek
-  email = cblazek@armt.com
+	name = kingbin
+	email = chris.blazek@gmail.com
 	signingkey = 5164DE33
 [github]
   user = kingbin
@@ -85,6 +83,9 @@
   sshow = "!f() { git stash show stash^{/$*} -p; }; f"
   ssave = "!f() { git stash save $*; }; f"
   sapply = "!f() { git stash apply stash^{/$*}; }; f"
+  slist = "!f() { git stash list; }; f"
+
+  statust = "!f() { git status -uno;  }; f"
 
 [core]
   editor = vi
@@ -137,7 +138,9 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[commit]
+	template = /Users/chrisblazek/.stCommitMsg

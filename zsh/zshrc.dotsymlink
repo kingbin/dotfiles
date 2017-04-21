@@ -42,11 +42,18 @@ ZSH_THEME="chrisblazek"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#plugins=(git)
-plugins=(git svn bundler ruby rvm gem cloudapp brew)
+#plugins=(git svn bundler ruby rvm gem cloudapp brew)
+plugins=(git gitignore brew OSX docker jira node npm ruby bundler rvm gem )
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# begin outdated completion
+. <(outdated --completion)
+# end outdated completion
+eval $(/usr/libexec/path_helper -s)
