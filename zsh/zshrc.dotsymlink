@@ -54,6 +54,9 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # begin outdated completion
-. <(outdated --completion)
+#. <(outdated --completion)
 # end outdated completion
 eval $(/usr/libexec/path_helper -s)
+
+#export PATH="$HOME/.fastlane/bin:$PATH"
+

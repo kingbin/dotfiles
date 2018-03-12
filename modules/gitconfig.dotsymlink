@@ -1,7 +1,7 @@
 [user]
-	name = kingbin
+	name = Chris Blazek
 	email = chris.blazek@gmail.com
-	signingkey = 5164DE33
+  signingkey = 5164DE33
 [github]
   user = kingbin
   email = chris.blazek@gmail.com
@@ -32,6 +32,7 @@
   vim = !.git/hooks/vim
 
   br = branch
+  brsort = !"git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
   # show all branches, even across remotes
   branches = branch -a --color -v
   # remove all local branches included in the current branch
@@ -82,8 +83,12 @@
   #stash functions
   sshow = "!f() { git stash show stash^{/$*} -p; }; f"
   ssave = "!f() { git stash save $*; }; f"
+  ssaveu = "!f() { git stash save -u $*; }; f"
   sapply = "!f() { git stash apply stash^{/$*}; }; f"
   slist = "!f() { git stash list; }; f"
+  spop = "!f() { git stash pop stash^{/$*}; }; f"
+  sdrop = "!f() { git stash drop stash^{/$*}; }; f"
+  sbranch = "!f() { git stash branch /$* stash^{1}; }; f"
 
   statust = "!f() { git status -uno;  }; f"
 

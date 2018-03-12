@@ -54,11 +54,36 @@ unbind C-b
  bind -r K resize-pane -U 5
  bind -r L resize-pane -R 5
 
+ # Save scrollback to txt file
+ # Prefix Esc: enter copy mode
+ # v: to begin visual selection
+ # gg: to capture everything in scrollback
+ # y: to yank into buffer
+ # Prefix c: open another tmux window
+ # vim scrollback.txt
+ unbind [
+ bind Escape copy-mode
+ unbind p
+ bind p paste-buffer
+ bind-key -t vi-copy 'v' begin-selection
+ bind-key -t vi-copy 'y' copy-selection
+
+ # ssh terminal title fix
+ set -g set-titles on
+ set -g set-titles-string "#T"
+
+ # Automatic layouting
+ bind-key -n M-c kill-pane \; select-layout
+ bind-key -n M-n split-window \; select-layout
+
  # mouse support
  #set -g mouse-utf8 on
  set -g mouse on
  # turn on 256 color support in tmux
  set -g default-terminal "screen-256color"
+
+
+
 
 # fiddle with colors of status bar
  set -g status-fg white
@@ -102,8 +127,10 @@ unbind C-b
  bind Escape copy-mode
  unbind p
  bind p paste-buffer
- bind -t vi-copy 'v' begin-selection
- bind -t vi-copy 'y' copy-selection
+ bind-key -T copy-mode-vi 'v' send -X begin-selection
+ bind-key -T copy-mode-vi 'y' send -X copy-selection
+ bind-key -T copy-mode-vi 'Space' send -X halfpage-down
+ bind-key -T copy-mode-vi 'Bspace' send -X halfpage-up
 
  # xclip support (commented as this often doesn't make sense on remote servers)
  #bind C-c run "tmux save-buffer - / xclip -i -sel clipboard"
