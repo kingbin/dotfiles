@@ -29,3 +29,8 @@ alias alias=:
 if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
     source ~/.zpath
 fi
+
+function emulator { ( cd "$(dirname "$(whence -p emulator)")" && ./emulator "$@"; ) }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

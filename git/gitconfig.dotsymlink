@@ -1,12 +1,17 @@
 [user]
-  #name = Chris Blazek
-  #email = chris.blazek@gmail.com
   name = Chris Blazek
-  email = cblazek@armt.com
-	signingkey = 5164DE33
+  email = kingbin13@pm.me
+  #email = chris.blazek@gmail.com
+  # signingkey = DEDF105A
+  # signingkey = DA461230 # pestroutes
+  # signingkey = 5164DE33
+  # signingkey = 09C4ECFC
+  signingkey = B270055C
+[includeIf "gitdir:~/Developer/fieldroutes/"]
+    path = ~/Developer/fieldroutes/.gitconfig
 [github]
   user = kingbin
-  email = chris.blazek@gmail.com
+  email = kingbin13@pm.me
 [color]
   ui = auto
 [color "branch"]
@@ -31,7 +36,7 @@
   springcleaning = for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:short)'
   unstage = reset HEAD --
   pu = !="git fetch origin -v; git fetch upstream -v; git merge upstream/master"
-  vim = !.git/hooks/vim
+#  vim = !.git/hooks/vim
 
   br = branch
   # show all branches, even across remotes
@@ -53,6 +58,7 @@
   # just for fun
   l33t = !"git shortlog | l33t"
   last = log -1 HEAD
+  commiter = log --pretty=format:'%cn committed %h on %cd'
   lol = log --abbrev-commit --pretty=format:'%h %G? - %an, %ad : %s' --graph
   lola = log  --abbrev-commit --pretty=format:'%h %G? - %an, %ad : %s' --graph --all
   loln = log --abbrev-commit --pretty=format:'%h %G? - %an, %ad : %s' --graph --name-status
@@ -85,6 +91,24 @@
   sshow = "!f() { git stash show stash^{/$*} -p; }; f"
   ssave = "!f() { git stash save $*; }; f"
   sapply = "!f() { git stash apply stash^{/$*}; }; f"
+  slist = "!f() { git stash list; }; f"
+  spop = "!f() { git stash pop stash^{/$*}; }; f"
+  sdrop = "!f() { git stash drop stash^{/$*}; }; f"
+  sbranch = "!f() { git stash branch /$* stash^{1}; }; f"
+
+  statust = "!f() { git status -uno;  }; f"
+
+  # https://stackoverflow.com/questions/8475448/find-merge-commit-which-include-a-specific-commit
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+  #showOwnerBranches = "!f() { git stash apply stash^{/$*}; }; f"
+  #showOwnerBranches = "!f() { git for-each-ref --format=' %(authorname) %09 %(creatordate) %09 %(refname)' --sort=authorname --sort=-creatordate | grep {/$*}; }; f"
+  showOwnerBranches = "!f() { git for-each-ref --format=' %(authorname) %09 %(creatordate) %09 %(refname)' --sort=authorname --sort=-creatordate; }; f"
+
+  # needle = "!f() { git for-each-ref --contains $1 refs/remotes/origin | wc -l; }; f"
+  needle = "!f() { git for-each-ref --contains $1 refs/remotes/origin; }; f"
+
 
 [core]
   editor = vi
@@ -113,31 +137,67 @@
 
 [branch]
 
+[diff]
+  tool = bc4
+
 [difftool]
   prompt = false
 
-#[diff]
-#  tool = diffmerge
-#
-#[difftool "diffmerge"]
-#  cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[difftool "bc4"]
+  trustExitCode = true
+  cmd = `/usr/local/bin/bcomp $LOCAL $REMOTE`
 
 [merge]
-#    tool = vimdiff
-  tool = diffmerge
+  tool = bc4
 
-[mergetool "diffmerge"]
-  cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+[mergetool]
+  prompt = false
+
+[mergetool "bc4"]
   trustExitCode = true
+  cmd = `/usr/local/bin/bcomp $LOCAL $REMOTE $BASE $MERGED`
 
 
 # vim: ft=gitconfig
 #[credential]
 #  helper = /opt/boxen/bin/boxen-git-credential
 
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+#[difftool "sourcetree"]
+#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+#	path =
+#[mergetool "sourcetree"]
+#	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+#  trustExitCode = true
+#
+#[mergetool "diffmerge"]
+#  cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+#  trustExitCode = true
+
+#[difftool "Kaleidoscope"]
+#	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+#[mergetool "Kaleidoscope"]
+#	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+#	trustExitCode = true
+
+[commit]
+  template = /Users/chrisblazek/.gitCommitMsg
+  gpgsign = false
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[diff]
+  renamelimit = 10000
+
+[gpg]
+  #program = /usr/local/bin/gpg
+  #program = /opt/homebrew/bin/gpg
+  program = /usr/local/MacGPG2/bin/gpg2
+#[difftool "sourcetree"]
+#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+#	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true

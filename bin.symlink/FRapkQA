@@ -1,0 +1,56 @@
+#!/bin/sh
+#/ Usage: FRapkQA [<options>]
+#/ mv app.aab to versioned folder and extract apk for QA testing
+#/ Any <options> are passed to 
+set -e
+
+test "$1" = "--help" && {
+    grep ^#/ <"$0"| cut -c4-
+    exit 2
+}
+
+workDir="$HOME/Downloads/"
+
+if [ -n "$2" ]; then
+  tag="$2"
+  dir="$workDir/android/$tag"
+  aabWithPath="$1"
+  aab="$1"
+else
+  tag="$1"
+  dir="$workDir/android/$tag"
+  aabWithPath="$workDir/app.aab"
+  aab="$workDir/app.aab"
+fi
+
+# dir="$HOME/Downloads/android/$1"
+
+bundle=$(basename $aab)
+
+echo "\r\n\r\n"
+echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+echo "param 1: $1"
+echo "param 2: $2"
+echo "tag: $tag"
+echo "workDir: $workDir"
+echo "dir: $dir"
+echo "aab: $aab"
+echo "bundle: $bundle"
+echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+echo "\r\n\r\n"
+
+if [ -d "$dir" ]; then
+  rm -rf "$dir"
+fi
+
+mkdir -p $dir
+# cp $aabWithPath $dir
+mv $aabWithPath $dir
+cd $dir
+
+#bundletool build-apks --bundle=$aab --output=my_app.apks --mode=universal
+bundletool build-apks --bundle=$bundle --output=my_app.apks --mode=universal
+cp my_app.apks my_app.zip
+unzip my_app.zip
+mv universal.apk "$tag".apk
+open ./
