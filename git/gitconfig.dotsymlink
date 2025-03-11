@@ -113,8 +113,9 @@
 [core]
   editor = vi
   autocrlf = input
+  safecrlf = warn
   filemode = false
-	excludesfile = /Users/chrisblazek/.gitignore_global
+  excludesfile = /Users/chrisblazek/.gitignore_global
   #whitespace = cr-at-eol
   whitespace = blank-at-eol
 

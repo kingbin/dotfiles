@@ -4,6 +4,7 @@
 [submodule "modules/vimconfig"]
 	path = modules/vimconfig
 	url = git@github.com:kingbin/vimconfig.git
+	ignore = dirty
 [submodule "modules/vim.dotsymlink"]
 	path = modules/vim.dotsymlink
 	url = git@github.com:kingbin/vimconfig.git
